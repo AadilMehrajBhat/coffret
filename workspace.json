@@ -1,6 +1,69 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "utils": {
+      "root": "packages/utils",
+      "sourceRoot": "packages/utils/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/utils",
+            "tsConfig": "packages/utils/tsconfig.lib.json",
+            "packageJson": "packages/utils/package.json",
+            "main": "packages/utils/src/index.ts",
+            "assets": ["packages/utils/*.md"]
+          }
+        }
+      }
+    },
+    "dsa": {
+      "root": "packages/dsa",
+      "sourceRoot": "packages/dsa/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/dsa/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "packages/dsa/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/dsa",
+            "tsConfig": "packages/dsa/tsconfig.lib.json",
+            "packageJson": "packages/dsa/package.json",
+            "main": "packages/dsa/src/index.ts",
+            "assets": ["packages/dsa/*.md"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }
