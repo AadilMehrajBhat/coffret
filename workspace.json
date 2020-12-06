@@ -21,13 +21,17 @@
           }
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/web:package",
           "options": {
-            "outputPath": "dist/packages/utils",
+            "outputPath": "dist/libs/utils",
             "tsConfig": "packages/utils/tsconfig.lib.json",
+            "project": "packages/utils/package.json",
             "packageJson": "packages/utils/package.json",
+            "entryFile": "packages/utils/src/index.ts",
+            "external": [],
+            "babelConfig": "@nrwl/web/babel",
             "main": "packages/utils/src/index.ts",
-            "assets": ["packages/utils/*.md"]
+            "assets": []
           }
         }
       }
@@ -52,13 +56,16 @@
           }
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/web:package",
           "options": {
-            "outputPath": "dist/packages/dsa",
+            "outputPath": "dist/libs/dsa",
             "tsConfig": "packages/dsa/tsconfig.lib.json",
             "packageJson": "packages/dsa/package.json",
+            "project": "packages/dsa/package.json",
+            "babelConfig": "@nrwl/web/babel",
+            "entryFile": "packages/dsa/src/index.ts",
             "main": "packages/dsa/src/index.ts",
-            "assets": ["packages/dsa/*.md"]
+            "assets": []
           }
         }
       }
