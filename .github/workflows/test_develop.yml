@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         # Latest nodes only
-        node-version: [14.x]
+        node-version: [12.x]
 
     # Define Steps
     steps:
@@ -28,7 +28,7 @@ jobs:
       - name: Install environment
         run: |
           rm -rf node_modules && rm -rf dist && rm -rf docs && rm -rf coverage
-          npm install
+          npm ci
       - name: Run lint
         run: ./.github/scripts/run-linting.sh False
 
