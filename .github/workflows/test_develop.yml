@@ -30,7 +30,7 @@ jobs:
           rm -rf node_modules && rm -rf dist && rm -rf docs && rm -rf coverage
           npm ci
       - name: Run lint
-        run: ./.github/scripts/run-linting.sh False
+        run: chmod +x ./.github/scripts/run-linting.sh False
 
       - name: Tests coverage
         env:
