@@ -23,7 +23,7 @@ jobs:
 
       # Make sure we have all branches
       - name: Fetch other branches
-        run: git fetch --no-tags --prune --depth=5 origin main
+        run: git fetch --no-tags --prune --depth=5 origin master
 
       - name: Install environment
         run: |
