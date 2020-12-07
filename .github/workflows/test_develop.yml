@@ -28,7 +28,7 @@ jobs:
       - name: Install environment
         run: |
           rm -rf node_modules && rm -rf dist && rm -rf docs && rm -rf coverage
-          npm ci
+          npm ci --only=production
       - name: Run lint
         run: ./.github/scripts/run-linting.sh False
 
