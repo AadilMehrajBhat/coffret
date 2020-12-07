@@ -38,5 +38,5 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
-          chmod +x ./.github/scripts/run-testing.sh False True $CODECOV_TOKEN
+          chmod +x ./.github/scripts/run-testing.sh
           ./.github/scripts/run-testing.sh False True $CODECOV_TOKEN
