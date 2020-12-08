@@ -4,6 +4,9 @@ on:
     branches:
       - develop
     types: [closed]
+  push:
+    branches:
+      - develop
 
 jobs:
   build:
