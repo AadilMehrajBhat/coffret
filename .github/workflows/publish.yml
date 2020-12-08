@@ -64,42 +64,42 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
           ./.github/scripts/library-build.sh
-      # Deploy the library to the general NPM repository
-      - name: Deploy To General NPM
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
-          ./.github/scripts/library-publish.sh "https://registry.npmjs.org"
-      # Deploy the library to the Github NPM repository
-      - name: Deploy To Github NPM
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.GH_NPM_PACKAGE_PUBLISHER }}
-        run: |
-          npm config set //npm.pkg.github.com/:_authToken=$NPM_AUTH_TOKEN
-          ./.github/scripts/library-publish.sh "https://npm.pkg.github.com"
-      # Build the Typedoc documentation
-      - name: Build Docs
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        run: ./.github/scripts/build-docs.sh
+      # # Deploy the library to the general NPM repository
+      # - name: Deploy To General NPM
+      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      #   run: |
+      #     npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+      #     ./.github/scripts/library-publish.sh "https://registry.npmjs.org"
+      # # Deploy the library to the Github NPM repository
+      # - name: Deploy To Github NPM
+      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+      #   env:
+      #     NPM_AUTH_TOKEN: ${{ secrets.GH_NPM_PACKAGE_PUBLISHER }}
+      #   run: |
+      #     npm config set //npm.pkg.github.com/:_authToken=$NPM_AUTH_TOKEN
+      #     ./.github/scripts/library-publish.sh "https://npm.pkg.github.com"
+      # # Build the Typedoc documentation
+      # - name: Build Docs
+      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+      #   run: ./.github/scripts/build-docs.sh
 
-      # Commit all files changes including docs
-      - name: Commit files
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git add docs -f
-          git commit -m "Release [skip-ci]" -a || true
-      # Push the changes back to the repo
-      - name: Push changes
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        uses: ad-m/github-push-action@master
-        with:
-          branch: develop
-          github_token: ${{ secrets.ACTION_AUTH_TOKEN }}
-          tags: true
-          force: true
+      # # Commit all files changes including docs
+      # - name: Commit files
+      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+      #   run: |
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "GitHub Action"
+      #     git add .
+      #     git add docs -f
+      #     git commit -m "Release [skip-ci]" -a || true
+      # # Push the changes back to the repo
+      # - name: Push changes
+      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     branch: develop
+      #     github_token: ${{ secrets.ACTION_AUTH_TOKEN }}
+      #     tags: true
+      #     force: true
