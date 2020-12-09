@@ -67,14 +67,14 @@ jobs:
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
           ./.github/scripts/library-build.sh
-      # # Deploy the library to the general NPM repository
-      # - name: Deploy To General NPM
-      #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-      #   env:
-      #     NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      #   run: |
-      #     npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
-      #     ./.github/scripts/library-publish.sh "https://registry.npmjs.org"
+      # Deploy the library to the general NPM repository
+      - name: Deploy To General NPM
+        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+          ./.github/scripts/library-publish.sh "https://registry.npmjs.org"
       # # Deploy the library to the Github NPM repository
       # - name: Deploy To Github NPM
       #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
