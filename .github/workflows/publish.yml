@@ -17,17 +17,17 @@ jobs:
     steps:
       # Checkout code
       - name: Checkout Code
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message || true, '[skip-ci]') == false
         uses: actions/checkout@v2
 
       # Make sure we have all branches
       - name: Fetch other branches
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message || true, '[skip-ci]') == false
         run: git fetch --no-tags --prune --depth=5 origin master
 
       # Setup node
       - name: Use Node.js ${{ matrix.node-version }}
-        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
+        if: github.event.pull_request.merged == true && contains(github.event.commits[0].message || true, '[skip-ci]') == false
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
