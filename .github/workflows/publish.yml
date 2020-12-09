@@ -1,12 +1,12 @@
-name: Merge on develop
+name: Merge on master
 on:
   pull_request:
     branches:
-      - develop
+      - master
     types: [closed]
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       # Make sure we have all branches
       - name: Fetch other branches
         if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
-        run: git fetch --no-tags --prune --depth=5 origin develop
+        run: git fetch --no-tags --prune --depth=5 origin master
 
       # Setup node
       - name: Use Node.js ${{ matrix.node-version }}
@@ -102,7 +102,7 @@ jobs:
       #   if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
       #   uses: ad-m/github-push-action@master
       #   with:
-      #     branch: develop
+      #     branch: master
       #     github_token: ${{ secrets.ACTION_AUTH_TOKEN }}
       #     tags: true
       #     force: true

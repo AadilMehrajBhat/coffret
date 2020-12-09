@@ -1,20 +1,13 @@
-# File for Pull Request on master branch
 name: PR on master
-
-# When a PR is opened to master
-on:
-  pull_request:
-    branches:
-      - master
-    types: [opened, reopened, synchronize]
+on: [push]
 jobs:
   build:
-    # Setup OS and Node Version
     runs-on: ubuntu-latest
     strategy:
       matrix:
         # Latest nodes only
-        node-version: [13.x]
+        node-version: [12.x]
+
     # Define Steps
     steps:
       # Checkout code
@@ -27,13 +20,23 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       # Make sure we have all branches
       - name: Fetch other branches
         run: git fetch --no-tags --prune --depth=5 origin master
+
       - name: Install environment
-        run: npm ci
+        run: |
+          rm -rf node_modules && rm -rf dist && rm -rf docs && rm -rf coverage
+          npm install
       - name: Run lint
-        run: npm run affected:lint -- --base="origin/master"
+        run: |
+          chmod +x ./.github/scripts/run-linting.sh
+          ./.github/scripts/run-linting.sh False
 
       - name: Tests coverage
-        run: npm run affected:test -- --base="origin/master" --codeCoverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: |
+          chmod +x ./.github/scripts/run-testing.sh
+          ./.github/scripts/run-testing.sh False True $CODECOV_TOKEN
