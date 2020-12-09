@@ -44,7 +44,9 @@ jobs:
         # if: github.event.pull_request.merged == true && contains(github.event.commits[0].message, '[skip-ci]') == false
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: ./.github/scripts/run-testing.sh False True $CODECOV_TOKEN
+        run: |
+          chmod +x ./.github/scripts/run-testing.sh
+          ./.github/scripts/run-testing.sh False True $CODECOV_TOKEN
 
       # Run versioning on affected libraries
       - name: Version
